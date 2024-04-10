@@ -166,6 +166,11 @@ export default function Home() {
     rpcClient.current = rpc_client
     setRpcClient(rpc_client)
   }
+
+  const handleInitRpcInOnce = async () => {
+    await handleInitSDK()
+    initRpcClient()
+  }
   const rpcCalls = async (method: string, params: any) => {
     console.log('rpcClient.current', rpcClient.current, params)
     let res;
@@ -185,11 +190,16 @@ export default function Home() {
       <div className="flex gap-[48px] items-start justify-center">
         <div className="flex flex-col gap-[12px]">
 
-          <div className="flex flex-row gap-[12px]">
-            <div className="flex-1 flex flex-col gap-[12px]">
+          <div className="flex flex-row gap-[12px] items-start justify-between">
+            <div className="w-min p-[12px] flex border-[1px] border-dashed border-[#fff] gap-[12px] items-center justify-center flex-wrap ">
               <Wrapper onClick={handleInitSDK} value={undefined} content="Init SDK"></Wrapper>
               <Wrapper onClick={initRpcClient} value={undefined} content={'Init Rpc Client'}></Wrapper>
+
+              <div className="w-full h-[1px] bg-[#ffffff3d]" />
+
+              <Wrapper onClick={handleInitRpcInOnce} value={undefined} content="Call in Once"></Wrapper>
             </div>
+
 
             <div className="flex gap-[12px] items-start justify-start flex-wrap">
               {
