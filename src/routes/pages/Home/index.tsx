@@ -202,7 +202,7 @@ export default function Home() {
           <div className="w-full h-[1px] bg-[#ffffff3d]" />
           <div className="flex flex-col gap-[6px]">
 
-            <input type="text" placeholder="custom methods" className={`input input-bordered w-full`} onChange={handleCustomMethod} value={customMethod} />
+            <input type="text" placeholder="getSupportChains" className={`input input-bordered w-full`} onChange={handleCustomMethod} value={customMethod} />
             <textarea placeholder="[param1,param2,...]" className="textarea textarea-bordered" onChange={handleCustomParam} value={customParam} />
             <button className="btn" onClick={handleSubmit}>Submit</button>
 
