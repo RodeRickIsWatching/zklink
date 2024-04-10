@@ -1,0 +1,14 @@
+{
+  "name": "zklink_sdk_wasm",
+  "version": "1.0.0",
+  "files": [
+    "zklink-sdk-web_bg.wasm",
+    "zklink-sdk-web.js",
+    "zklink-sdk-web.d.ts"
+  ],
+  "module": "zklink-sdk-web.js",
+  "types": "zklink-sdk-web.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}

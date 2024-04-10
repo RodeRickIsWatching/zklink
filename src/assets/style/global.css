@@ -1,0 +1,80 @@
+* {
+    margin: 0;
+    font-family: 'Space Grotesk', sans-serif;
+}
+/* fix 浏览器默认样式 */
+a,
+a:link,
+a:visited,
+a:hover,
+a:active {
+    text-decoration: none;
+    color: inherit;
+    backface-visibility: hidden;
+}
+img {
+    display: block;
+    outline: none;
+}
+/* 全局样式 */
+* {
+    box-sizing: border-box;
+}
+:root {
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+/* 隐藏横向滚动条 */
+:root::-webkit-scrollbar {
+    height: 0;
+    background-color: transparent;
+}
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+.common-btn {
+    border-radius: 99px !important;
+    height: auto;
+    box-sizing: content-box !important;
+    background: linear-gradient(
+        90deg,
+        #395df2 -2.05%,
+        #2391f6 52.55%,
+        #b072ff 100%
+    );
+    box-shadow: 0px 4px 9px 0px rgba(0, 0, 0, 0.12);
+    padding: 18px 32px !important;
+    border: none !important;
+}
+
+.common-btn span {
+    color: var(--white-100, #fff);
+    font-family: Dela Gothic One !important;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700 !important;
+    line-height: 28px; /* 140% */
+    text-transform: uppercase;
+}
+
+
+/* w3m-button wui-connect-button > button{
+    background: linear-gradient(90deg, #395DF2 -2.05%, #2391F6 52.55%, #B072FF 100%)!important;
+} */
+
+:root{
+    /* --wui-border-radius-m: 12px!important;
+    --wui-border-radius-3xl: var(--wui-border-radius-m)!important;
+    --wui-gray-glass-002: rgba(0, 0, 0, 0.05)!important;
+
+    --w3m-font-family: 'Space Grotesk', sans-serif!important;
+    --wui-gray-glass-005: transparent !important;
+
+    --wui-color-accent-100: linear-gradient(90deg, #395DF2 -2.05%, #2391F6 52.55%, #B072FF 100%)!important;
+    --wui-gray-glass-015: #fff !important;
+    --local-color: #fff !important; */
+}
