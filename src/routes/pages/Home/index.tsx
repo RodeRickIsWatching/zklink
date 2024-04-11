@@ -4,6 +4,8 @@ import { initSdk } from "@/utils";
 import { useRef, useState } from "react";
 import { recoverMessageAddress } from "viem";
 import { useAccount, useSignMessage } from "wagmi";
+import ReactJson from 'react-json-view'
+
 
 function parseInput(inputStr?: string) {
   if (!inputStr) return;
@@ -30,12 +32,12 @@ function parseInput(inputStr?: string) {
   }
 }
 
-const Wrapper = ({ textareaClassName, className, onClick, value, content, disabled }: any) => {
+const Wrapper = ({ children, textareaClassName, className, onClick, value, content, disabled }: any) => {
   return (<div className={`flex flex-col gap-2 w-[220px] ${className}`}>
     <button disabled={disabled} className="btn" onClick={onClick}>
       {content}
     </button>
-    {value === undefined ? null : <textarea className={`textarea textarea-bordered ${textareaClassName}`} value={value} />}
+    {children || (value === undefined ? null : <textarea className={`textarea textarea-bordered ${textareaClassName}`} value={value} />)}
   </div>
   )
 }
@@ -45,7 +47,7 @@ const WrapperWithInput = ({ editable, inputClassName, className, onClick, value,
     <button disabled={disabled} className="btn" onClick={onClick}>
       {content}
     </button>
-    {(disabled || !editable) ? null : <input type="text" className={`input input-bordered w-full max-w-xs ${inputClassName}`} value={value} />}
+    {(disabled || !editable) ? null : <input type="text" className={`input input-bordered w-full max-w-xs ${inputClassName}`} value={value || ''} />}
   </div>
   )
 }
@@ -55,11 +57,13 @@ const test_msg = 'zkink demo test message'
 // https://docs.zk.link/developer/json-rpc-and-websocket/json-rpc-api#json-rpc-methods
 const rpcMethods = ['getSupportChains', 'getSupportTokens', 'getLatestBlockNumber', 'getBlockByNumber']
 
+const defaultRpcUrl = 'https://dev-gw-v1.zk.link'
 export default function Home() {
   const sdk = useRef<any>()
   const account = useAccount()
   const provider = useEthersProvider()
   const signer = useEthersSigner()
+  const [rpcUrl, setRpcUrl] = useState(defaultRpcUrl)
 
 
   const [signerInfo, setSignerInfo] = useState<any>({})
@@ -161,15 +165,15 @@ export default function Home() {
     rpcCalls(customMethod, parseInput(customParam))
   }
 
-  const initRpcClient = () => {
-    const rpc_client = new RpcClient("", 'https://dev-gw-v1.zk.link');
+  const initRpcClient = (url: string) => {
+    const rpc_client = new RpcClient("", url);
     rpcClient.current = rpc_client
     setRpcClient(rpc_client)
   }
 
   const handleInitRpcInOnce = async () => {
     await handleInitSDK()
-    initRpcClient()
+    initRpcClient(rpcUrl)
   }
   const rpcCalls = async (method: string, params: any) => {
     console.log('rpcClient.current', rpcClient.current, params)
@@ -189,6 +193,7 @@ export default function Home() {
       {/* rpcs */}
       <div className="flex gap-[48px] items-start justify-center">
         <div className="flex flex-col gap-[12px]">
+          <input type="text" placeholder={`rpc: ${rpcUrl}`} className={`input input-bordered w-full`} onChange={(e) => { setRpcUrl(e?.target?.value) }} value={rpcUrl} />
 
           <div className="flex flex-row gap-[12px] items-start justify-between">
             <div className="w-min p-[12px] flex border-[1px] border-dashed border-[#fff] gap-[12px] items-center justify-center flex-wrap ">
@@ -212,13 +217,16 @@ export default function Home() {
           <div className="w-full h-[1px] bg-[#ffffff3d]" />
           <div className="flex flex-col gap-[6px]">
 
-            <input type="text" placeholder="getSupportChains" className={`input input-bordered w-full`} onChange={handleCustomMethod} value={customMethod} />
-            <textarea placeholder="[param1,param2,...]" className="textarea textarea-bordered" onChange={handleCustomParam} value={customParam} />
+            <input type="text" placeholder="getSupportChains" className={`input input-bordered w-full`} onChange={handleCustomMethod} value={customMethod || ''} />
+            <textarea placeholder="[param1,param2,...]" className="textarea textarea-bordered" onChange={handleCustomParam} value={customParam || ''} />
             <button className="btn" onClick={handleSubmit}>Submit</button>
 
           </div>
         </div>
-        <Wrapper textareaClassName="min-h-[200px]" className="w-full min-w-[500px] flex-1" value={JSON.stringify(rpcResult, null, 4)} content="Rpc Result"></Wrapper>
+
+        <Wrapper textareaClassName="min-h-[200px]" className="w-full min-w-[500px] flex-1" value={JSON.stringify(rpcResult, null, 4)} content="Rpc Result">
+          <ReactJson theme="google" src={rpcResult} />
+        </Wrapper>
       </div>
 
       <div className="w-full h-[1px] bg-[#ffffff3d]" />
