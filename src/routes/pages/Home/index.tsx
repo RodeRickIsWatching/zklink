@@ -197,7 +197,7 @@ export default function Home() {
 
               <div className="w-full h-[1px] bg-[#ffffff3d]" />
 
-              <Wrapper onClick={handleInitRpcInOnce} value={undefined} content="Call in Once"></Wrapper>
+              <Wrapper onClick={handleInitRpcInOnce} value={undefined} content="Batch Call"></Wrapper>
             </div>
 
 
@@ -233,7 +233,7 @@ export default function Home() {
 
                 <div className="w-full h-[1px] bg-[#ffffff3d]" />
 
-                <Wrapper onClick={handleInitInOnce} value={undefined} content="Call in Once"></Wrapper>
+                <Wrapper onClick={handleInitInOnce} value={undefined} content="Batch Call"></Wrapper>
               </div>
               <Wrapper onClick={handleVerifySignature} value={undefined} content="Verify Signature" />
             </div>
@@ -246,7 +246,7 @@ export default function Home() {
 
                 <div className="w-full h-[1px] bg-[#ffffff3d]" />
 
-                <Wrapper disabled={!_signer} onClick={handleOnboardingInOnce} value={undefined} content="Call in Once"></Wrapper>
+                <Wrapper disabled={!_signer} onClick={handleOnboardingInOnce} value={undefined} content="Batch Call"></Wrapper>
               </div>
               {/* <Wrapper onClick={handleCallInOnce} value={undefined} content="free"></Wrapper> */}
 
