@@ -162,7 +162,7 @@ export default function Home() {
   }
 
   const initRpcClient = () => {
-    const rpc_client = new RpcClient("testnet");
+    const rpc_client = new RpcClient("", 'https://dev-gw-v1.zk.link');
     rpcClient.current = rpc_client
     setRpcClient(rpc_client)
   }

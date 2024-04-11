@@ -7,12 +7,11 @@ import { defaultWagmiConfig } from '@web3modal/wagmi/react/config'
 
 import { createWeb3Modal } from "@web3modal/wagmi/react";
 import { WagmiProvider } from "wagmi";
-import { mainnet, sepolia, arbitrumSepolia, arbitrum } from "viem/chains";
+import { sepolia, bscTestnet, baseSepolia } from "viem/chains";
 
 import "@/assets/style/tailwind.css";
 import "@/assets/style/global.css";
 import "@arco-design/web-react/dist/css/arco.css";
-import { isProd } from "./config";
 import { RecoilRoot } from "recoil";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -23,7 +22,7 @@ const queryClient = new QueryClient();
 // 1. Get projectId at https://cloud.walletconnect.com
 const projectId = "b7d32f395b889b7ec2e721ecb1cccb61";
 
-const chains = isProd ? [mainnet, arbitrum] : [sepolia, arbitrumSepolia];
+const chains = [sepolia, bscTestnet, baseSepolia];
 // 2. Create wagmiConfig
 const metadata = {
     name: 'Web3Modal',
