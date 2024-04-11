@@ -33,7 +33,7 @@ function parseInput(inputStr?: string) {
 }
 
 const Wrapper = ({ children, textareaClassName, className, onClick, value, content, disabled }: any) => {
-  return (<div className={`flex flex-col gap-2 w-[220px] ${className}`}>
+  return (<div className={`flex flex-col gap-2 w-[220px] overflow-x-auto ${className}`}>
     <button disabled={disabled} className="btn" onClick={onClick}>
       {content}
     </button>
@@ -264,7 +264,9 @@ export default function Home() {
 
           </>
         </div>
-        <Wrapper textareaClassName="min-h-[200px]" className="w-full flex-1 min-w-[500px]" value={JSON.stringify(signerInfo, null, 4)} content="Signer Info"></Wrapper>
+        <Wrapper textareaClassName="min-h-[200px]" className="w-full flex-1 min-w-[500px]" value={JSON.stringify(signerInfo, null, 4)} content="Signer Info">
+          <ReactJson theme="google" src={signerInfo} />
+        </Wrapper>
       </div>
 
     </div>
