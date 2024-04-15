@@ -1,5 +1,5 @@
 import { useEthersProvider, useEthersSigner } from "@/hooks/useEtherSginer";
-import { RpcClient, newEthereumRpcSigner } from "@/packages/zklink/zklink-sdk-web";
+import { RpcClient, newRpcSignerWithProvider } from "@/packages/zklink/zklink-sdk-web";
 import { initSdk } from "@/utils";
 import { useRef, useState } from "react";
 import { recoverMessageAddress } from "viem";
@@ -87,7 +87,7 @@ export default function Home() {
 
   const [_signer, setSigner] = useState<any>()
   const handleNewEthereumRpcSigner = () => {
-    const rpcSigner = newEthereumRpcSigner(signer)
+    const rpcSigner = newRpcSignerWithProvider(signer)
     console.log('rpcSigner', rpcSigner)
     setSigner(rpcSigner)
   }

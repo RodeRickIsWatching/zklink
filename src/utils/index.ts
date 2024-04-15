@@ -97,33 +97,33 @@ export function assertTradingFeeRatio(value: number, msg: string) {
 }
 
 
-export const connectByEvmProvider = async (provider: any) => {
-  if (!provider) {
-    throw new Error('Web3Provider not found')
-  }
-  if (!provider) {
-    throw new Error('ExternalProvider not found')
-  }
+// export const connectByEvmProvider = async (provider: any) => {
+//   if (!provider) {
+//     throw new Error('Web3Provider not found')
+//   }
+//   if (!provider) {
+//     throw new Error('ExternalProvider not found')
+//   }
 
-  const network = await provider.detectNetwork()
-  if (!network?.chainId) {
-    throw new Error('Cannot detect network')
-  }
+//   const network = await provider.detectNetwork()
+//   if (!network?.chainId) {
+//     throw new Error('Cannot detect network')
+//   }
 
-  const web3Signer = provider.getSigner()
-  const address = await web3Signer.getAddress()
-  if (!address) {
-    throw new Error('common-not-address')
-  }
+//   const web3Signer = provider.getSigner()
+//   const address = await web3Signer.getAddress()
+//   if (!address) {
+//     throw new Error('common-not-address')
+//   }
 
-  const chainId = network.chainId
+//   const chainId = network.chainId
 
-  const newSigner = sdk.newEthereumRpcSigner(web3Signer)
-  // const newSigner = sdk.newRpcSignerWithProvider(provider.provider)
+//   const newSigner = sdk.newEthereumRpcSigner(web3Signer)
+//   // const newSigner = sdk.newRpcSignerWithProvider(provider.provider)
 
-  return {
-    address,
-    chainId,
-    newSigner,
-  }
-}
+//   return {
+//     address,
+//     chainId,
+//     newSigner,
+//   }
+// }

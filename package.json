@@ -19,7 +19,6 @@
     "@radix-ui/themes": "^2.0.3",
     "@tanstack/react-query": "^5.28.9",
     "@web3modal/wagmi": "^4.1.3",
-    "ZkLink": "file:./public/packages/zklink",
     "ahooks": "^3.7.8",
     "bignumber.js": "^9.1.2",
     "dayjs": "^1.11.10",

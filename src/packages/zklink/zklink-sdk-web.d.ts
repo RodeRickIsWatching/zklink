@@ -1,68 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
-* @param {FundingBuilder} builder
-* @returns {Funding}
-*/
-export function newFunding(builder: FundingBuilder): Funding;
-/**
-* @param {TransferBuilder} builder
-* @returns {Transfer}
-*/
-export function newTransfer(builder: TransferBuilder): Transfer;
-/**
-* @param {WithdrawBuilder} builder
-* @returns {Withdraw}
-*/
-export function newWithdraw(builder: WithdrawBuilder): Withdraw;
-/**
-* @param {ChangePubKeyBuilder} builder
-* @returns {ChangePubKey}
-*/
-export function newChangePubkey(builder: ChangePubKeyBuilder): ChangePubKey;
-/**
-* @param {ContractMatchingBuilder} builder
-* @returns {ContractMatching}
-*/
-export function newContractMatching(builder: ContractMatchingBuilder): ContractMatching;
-/**
-* @param {ContractBuilder} builder
-* @returns {Contract}
-*/
-export function newContract(builder: ContractBuilder): Contract;
-/**
-* @param {ForcedExitBuilder} builder
-* @returns {ForcedExit}
-*/
-export function newForcedExit(builder: ForcedExitBuilder): ForcedExit;
-/**
-* @param {any} signer
-* @returns {JsonRpcSigner}
-*/
-export function newEthereumRpcSigner(signer: any): JsonRpcSigner;
-/**
-* @param {any} signer
-* @param {string} pub_key
-* @param {string} chain_id
-* @returns {JsonRpcSigner}
-*/
-export function newStarknetRpcSigner(signer: any, pub_key: string, chain_id: string): JsonRpcSigner;
-/**
-* @param {AutoDeleveragingBuilder} builder
-* @returns {AutoDeleveraging}
-*/
-export function newAutoDeleveraging(builder: AutoDeleveragingBuilder): AutoDeleveraging;
-/**
-* @param {LiquidationBuilder} builder
-* @returns {Liquidation}
-*/
-export function newLiquidation(builder: LiquidationBuilder): Liquidation;
-/**
-* @param {UpdateGlobalVarBuilder} builder
-* @returns {UpdateGlobalVar}
-*/
-export function newUpdateGlobalVar(builder: UpdateGlobalVarBuilder): UpdateGlobalVar;
-/**
 * @param {OrderMatchingBuilder} builder
 * @returns {OrderMatching}
 */
@@ -78,27 +16,86 @@ export function closestPackableTransactionAmount(amount: string): string;
 */
 export function closestPackableTransactionFee(fee: string): string;
 /**
+* @param {ChangePubKeyBuilder} builder
+* @returns {ChangePubKey}
+*/
+export function newChangePubkey(builder: ChangePubKeyBuilder): ChangePubKey;
+/**
+* @param {LiquidationBuilder} builder
+* @returns {Liquidation}
+*/
+export function newLiquidation(builder: LiquidationBuilder): Liquidation;
+/**
+* @param {TransferBuilder} builder
+* @returns {Transfer}
+*/
+export function newTransfer(builder: TransferBuilder): Transfer;
+/**
+* @param {FundingBuilder} builder
+* @returns {Funding}
+*/
+export function newFunding(builder: FundingBuilder): Funding;
+/**
+* @param {any} provider
+* @returns {JsonRpcSigner}
+*/
+export function newRpcSignerWithProvider(provider: any): JsonRpcSigner;
+/**
+* @param {any} signer
+* @param {string} pub_key
+* @param {string} chain_id
+* @returns {JsonRpcSigner}
+*/
+export function newRpcSignerWithSigner(signer: any, pub_key: string, chain_id: string): JsonRpcSigner;
+/**
+* @param {UpdateGlobalVarBuilder} builder
+* @returns {UpdateGlobalVar}
+*/
+export function newUpdateGlobalVar(builder: UpdateGlobalVarBuilder): UpdateGlobalVar;
+/**
+* @param {ForcedExitBuilder} builder
+* @returns {ForcedExit}
+*/
+export function newForcedExit(builder: ForcedExitBuilder): ForcedExit;
+/**
+* @param {AutoDeleveragingBuilder} builder
+* @returns {AutoDeleveraging}
+*/
+export function newAutoDeleveraging(builder: AutoDeleveragingBuilder): AutoDeleveraging;
+/**
+* @param {WithdrawBuilder} builder
+* @returns {Withdraw}
+*/
+export function newWithdraw(builder: WithdrawBuilder): Withdraw;
+/**
+* @param {ContractMatchingBuilder} builder
+* @returns {ContractMatching}
+*/
+export function newContractMatching(builder: ContractMatchingBuilder): ContractMatching;
+/**
+* @param {ContractBuilder} builder
+* @returns {Contract}
+*/
+export function newContract(builder: ContractBuilder): Contract;
+/**
+*/
+export enum AccountQueryType {
+  AccountId = 0,
+  Address = 1,
+}
+/**
+*/
+export enum WaitForTxStatus {
+  Success = 0,
+  Failed = 1,
+  Pending = 2,
+}
+/**
 */
 export enum EthAuthType {
   OnChain = 0,
   EthECDSA = 1,
   EthCREATE2 = 2,
-}
-/**
-*/
-export enum L1SignatureType {
-  Eth = 0,
-  Eip1271 = 1,
-  Stark = 2,
-}
-/**
-*/
-export enum ParameterType {
-  FeeAccount = 0,
-  InsuranceFundAccount = 1,
-  MarginInfo = 2,
-  FundingInfos = 3,
-  ContractInfo = 4,
 }
 /**
 */
@@ -109,11 +106,6 @@ export enum BlockNumber {
   Earliest = 3,
   Pending = 4,
   Number = 5,
-}
-/**
-*/
-export enum OracleType {
-  Pyth = 0,
 }
 /**
 * A set of L2 transaction type supported by the zklink network.
@@ -134,16 +126,19 @@ export enum ZkLinkTxType {
 }
 /**
 */
-export enum WaitForTxStatus {
-  Success = 0,
-  Failed = 1,
-  Pending = 2,
+export enum L1SignatureType {
+  Eth = 0,
+  Eip1271 = 1,
+  Stark = 2,
 }
 /**
 */
-export enum AccountQueryType {
-  AccountId = 0,
-  Address = 1,
+export enum ParameterType {
+  FeeAccount = 0,
+  InsuranceFundAccount = 1,
+  MarginInfo = 2,
+  FundingInfos = 3,
+  ContractInfo = 4,
 }
 /**
 */
@@ -555,11 +550,10 @@ export class MarginInfo {
   free(): void;
 /**
 * @param {number} margin_id
-* @param {string} symbol
 * @param {number} token_id
 * @param {number} ratio
 */
-  constructor(margin_id: number, symbol: string, token_id: number, ratio: number);
+  constructor(margin_id: number, token_id: number, ratio: number);
 /**
 * @returns {any}
 */
@@ -659,10 +653,9 @@ export class RpcClient {
 * @param {any} tx
 * @param {TxLayer1Signature | undefined} [l1_signature]
 * @param {TxZkLinkSignature | undefined} [l2_signature]
-* @param {TxOracleSignature | undefined} [oracle_signature]
 * @returns {Promise<any>}
 */
-  sendTransaction(tx: any, l1_signature?: TxLayer1Signature, l2_signature?: TxZkLinkSignature, oracle_signature?: TxOracleSignature): Promise<any>;
+  sendTransaction(tx: any, l1_signature?: TxLayer1Signature, l2_signature?: TxZkLinkSignature): Promise<any>;
 /**
 * @returns {Promise<any>}
 */
@@ -733,7 +726,7 @@ export class RpcClient {
 * @param {number} max_txs
 * @returns {Promise<any>}
 */
-  getFastWithdrawTxs(last_tx_timestamp: bigint, max_txs: number): Promise<any>;
+  getWithdrawTxs(last_tx_timestamp: bigint, max_txs: number): Promise<any>;
 /**
 * @param {number} sub_account_id
 * @param {bigint} offset_id
@@ -810,11 +803,6 @@ export class TxLayer1Signature {
 * @returns {string}
 */
   signature(): string;
-}
-/**
-*/
-export class TxOracleSignature {
-  free(): void;
 }
 /**
 */
@@ -957,14 +945,14 @@ export class WithdrawBuilder {
 * @param {number} l2_source_token
 * @param {number} l1_target_token
 * @param {string} amount
-* @param {string | undefined} data_hash
+* @param {string | undefined} call_data
 * @param {string} fee
 * @param {number} nonce
 * @param {boolean} withdraw_to_l1
 * @param {number} withdraw_fee_ratio
 * @param {number | undefined} [ts]
 */
-  constructor(account_id: number, sub_account_id: number, to_chain_id: number, to_address: string, l2_source_token: number, l1_target_token: number, amount: string, data_hash: string | undefined, fee: string, nonce: number, withdraw_to_l1: boolean, withdraw_fee_ratio: number, ts?: number);
+  constructor(account_id: number, sub_account_id: number, to_chain_id: number, to_address: string, l2_source_token: number, l1_target_token: number, amount: string, call_data: string | undefined, fee: string, nonce: number, withdraw_to_l1: boolean, withdraw_fee_ratio: number, ts?: number);
 /**
 * @returns {Withdraw}
 */
@@ -985,64 +973,23 @@ export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembl
 
 export interface InitOutput {
   readonly memory: WebAssembly.Memory;
-  readonly __wbg_rpcclient_free: (a: number) => void;
-  readonly rpcclient_new: (a: number, b: number, c: number, d: number, e: number) => void;
-  readonly rpcclient_getSupportTokens: (a: number) => number;
-  readonly rpcclient_getAccountSnapshot: (a: number, b: number, c: number, d: number, e: number) => number;
-  readonly rpcclient_sendTransaction: (a: number, b: number, c: number, d: number, e: number) => number;
-  readonly rpcclient_getSupportChains: (a: number) => number;
-  readonly rpcclient_getLatestBlockNumber: (a: number) => number;
-  readonly rpcclient_getBlockByNumber: (a: number, b: number, c: number, d: number, e: number) => number;
-  readonly rpcclient_getPendingBlock: (a: number, b: number, c: number, d: number, e: number, f: number) => number;
-  readonly rpcclient_getBlockOnChainByNumber: (a: number, b: number) => number;
-  readonly rpcclient_getAccount: (a: number, b: number) => number;
-  readonly rpcclient_getAccountBalances: (a: number, b: number, c: number) => number;
-  readonly rpcclient_getAccountOrderSlots: (a: number, b: number, c: number) => number;
-  readonly rpcclient_getTokenReserve: (a: number, b: number, c: number) => number;
-  readonly rpcclient_getTransactionByHash: (a: number, b: number, c: number, d: number) => number;
-  readonly rpcclient_getAccountTransactionHistory: (a: number, b: number, c: number, d: number, e: number, f: number) => number;
-  readonly rpcclient_getFastWithdrawTxs: (a: number, b: number, c: number) => number;
-  readonly rpcclient_pullForwardTxs: (a: number, b: number, c: number, d: number) => number;
-  readonly rpcclient_getWebSocketEvents: (a: number, b: number, c: number, d: number, e: number, f: number) => number;
-  readonly __wbg_fundinginfo_free: (a: number) => void;
-  readonly fundinginfo_new: (a: number, b: number, c: number, d: number, e: number) => void;
-  readonly fundinginfo_jsonValue: (a: number, b: number) => void;
-  readonly __wbg_funding_free: (a: number) => void;
-  readonly funding_jsValue: (a: number, b: number) => void;
-  readonly __wbg_fundingbuilder_free: (a: number) => void;
-  readonly fundingbuilder_new: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number) => void;
-  readonly fundingbuilder_build: (a: number) => number;
-  readonly newFunding: (a: number) => number;
   readonly __wbg_contractprice_free: (a: number) => void;
   readonly contractprice_new: (a: number, b: number, c: number, d: number) => void;
   readonly contractprice_jsonValue: (a: number, b: number) => void;
   readonly __wbg_spotpriceinfo_free: (a: number) => void;
   readonly spotpriceinfo_new: (a: number, b: number, c: number, d: number) => void;
   readonly spotpriceinfo_jsonValue: (a: number, b: number) => void;
-  readonly __wbg_transfer_free: (a: number) => void;
-  readonly transfer_json_value: (a: number, b: number) => void;
-  readonly __wbg_transferbuilder_free: (a: number) => void;
-  readonly transferbuilder_new: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number, j: number, k: number, l: number, m: number, n: number) => void;
-  readonly transferbuilder_build: (a: number) => number;
-  readonly newTransfer: (a: number) => number;
-  readonly __wbg_withdraw_free: (a: number) => void;
-  readonly withdraw_json_value: (a: number, b: number) => void;
-  readonly __wbg_withdrawbuilder_free: (a: number) => void;
-  readonly withdrawbuilder_new: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number, j: number, k: number, l: number, m: number, n: number, o: number, p: number, q: number, r: number, s: number) => void;
-  readonly withdrawbuilder_build: (a: number) => number;
-  readonly newWithdraw: (a: number) => number;
-  readonly __wbg_accountquery_free: (a: number) => void;
-  readonly __wbg_txzklinksignature_free: (a: number) => void;
-  readonly __wbg_txoraclesignature_free: (a: number) => void;
-  readonly __wbg_zklinktx_free: (a: number) => void;
-  readonly txzklinksignature_new: (a: number, b: number, c: number, d: number, e: number) => void;
-  readonly accountquery_new: (a: number, b: number, c: number) => number;
-  readonly txlayer1signature_new: (a: number, b: number, c: number) => number;
-  readonly txlayer1signature_signType: (a: number) => number;
-  readonly txlayer1signature_signature: (a: number, b: number) => void;
-  readonly txzklinksignature_pubKey: (a: number, b: number) => void;
-  readonly txzklinksignature_signature: (a: number, b: number) => void;
-  readonly zklinktx_new: (a: number, b: number) => number;
+  readonly __wbg_order_free: (a: number) => void;
+  readonly __wbg_ordermatching_free: (a: number) => void;
+  readonly order_new: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number, j: number, k: number, l: number, m: number, n: number, o: number) => void;
+  readonly order_json_value: (a: number, b: number) => void;
+  readonly ordermatching_json_value: (a: number, b: number) => void;
+  readonly __wbg_ordermatchingbuilder_free: (a: number) => void;
+  readonly ordermatchingbuilder_new: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number, j: number, k: number, l: number, m: number, n: number, o: number, p: number) => void;
+  readonly ordermatchingbuilder_build: (a: number) => number;
+  readonly newOrderMatching: (a: number) => number;
+  readonly closestPackableTransactionAmount: (a: number, b: number, c: number) => void;
+  readonly closestPackableTransactionFee: (a: number, b: number, c: number) => void;
   readonly __wbg_create2data_free: (a: number) => void;
   readonly __wbg_changepubkey_free: (a: number) => void;
   readonly create2data_new: (a: number, b: number, c: number, d: number, e: number, f: number, g: number) => void;
@@ -1054,28 +1001,75 @@ export interface InitOutput {
   readonly changepubkeybuilder_new: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number, j: number, k: number, l: number, m: number, n: number) => void;
   readonly changepubkeybuilder_build: (a: number) => number;
   readonly newChangePubkey: (a: number) => number;
-  readonly __wbg_contractmatching_free: (a: number) => void;
-  readonly contractmatching_jsValue: (a: number, b: number) => void;
-  readonly __wbg_contractmatchingbuilder_free: (a: number) => void;
-  readonly contractmatchingbuilder_new: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number, j: number, k: number, l: number, m: number) => void;
-  readonly contractmatchingbuilder_build: (a: number) => number;
-  readonly newContractMatching: (a: number) => number;
-  readonly __wbg_contract_free: (a: number) => void;
-  readonly contract_jsonValue: (a: number, b: number) => void;
-  readonly __wbg_contractbuilder_free: (a: number) => void;
-  readonly contractbuilder_new: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number, j: number, k: number, l: number, m: number, n: number) => void;
-  readonly contractbuilder_build: (a: number) => number;
-  readonly newContract: (a: number) => number;
-  readonly __wbg_forcedexit_free: (a: number) => void;
-  readonly forcedexit_json_value: (a: number, b: number) => void;
-  readonly __wbg_forcedexitbuilder_free: (a: number) => void;
-  readonly forcedexitbuilder_new: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number, j: number, k: number, l: number, m: number, n: number, o: number) => void;
-  readonly forcedexitbuilder_build: (a: number) => number;
-  readonly newForcedExit: (a: number) => number;
+  readonly __wbg_liquidation_free: (a: number) => void;
+  readonly liquidation_jsValue: (a: number, b: number) => void;
+  readonly __wbg_liquidationbuilder_free: (a: number) => void;
+  readonly liquidationbuilder_new: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number, j: number, k: number, l: number) => void;
+  readonly liquidationbuilder_build: (a: number) => number;
+  readonly newLiquidation: (a: number) => number;
+  readonly __wbg_transfer_free: (a: number) => void;
+  readonly transfer_json_value: (a: number, b: number) => void;
+  readonly __wbg_transferbuilder_free: (a: number) => void;
+  readonly transferbuilder_new: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number, j: number, k: number, l: number, m: number, n: number) => void;
+  readonly transferbuilder_build: (a: number) => number;
+  readonly newTransfer: (a: number) => number;
+  readonly __wbg_fundinginfo_free: (a: number) => void;
+  readonly fundinginfo_new: (a: number, b: number, c: number, d: number, e: number) => void;
+  readonly fundinginfo_jsonValue: (a: number, b: number) => void;
+  readonly __wbg_funding_free: (a: number) => void;
+  readonly funding_jsValue: (a: number, b: number) => void;
+  readonly __wbg_fundingbuilder_free: (a: number) => void;
+  readonly fundingbuilder_new: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number) => void;
+  readonly fundingbuilder_build: (a: number) => number;
+  readonly newFunding: (a: number) => number;
+  readonly __wbg_rpcclient_free: (a: number) => void;
+  readonly rpcclient_new: (a: number, b: number, c: number, d: number, e: number) => void;
+  readonly rpcclient_getSupportTokens: (a: number) => number;
+  readonly rpcclient_getAccountSnapshot: (a: number, b: number, c: number, d: number, e: number) => number;
+  readonly rpcclient_sendTransaction: (a: number, b: number, c: number, d: number) => number;
+  readonly rpcclient_getSupportChains: (a: number) => number;
+  readonly rpcclient_getLatestBlockNumber: (a: number) => number;
+  readonly rpcclient_getBlockByNumber: (a: number, b: number, c: number, d: number, e: number) => number;
+  readonly rpcclient_getPendingBlock: (a: number, b: number, c: number, d: number, e: number, f: number) => number;
+  readonly rpcclient_getBlockOnChainByNumber: (a: number, b: number) => number;
+  readonly rpcclient_getAccount: (a: number, b: number) => number;
+  readonly rpcclient_getAccountBalances: (a: number, b: number, c: number) => number;
+  readonly rpcclient_getAccountOrderSlots: (a: number, b: number, c: number) => number;
+  readonly rpcclient_getTokenReserve: (a: number, b: number, c: number) => number;
+  readonly rpcclient_getTransactionByHash: (a: number, b: number, c: number, d: number) => number;
+  readonly rpcclient_getAccountTransactionHistory: (a: number, b: number, c: number, d: number, e: number, f: number) => number;
+  readonly rpcclient_getWithdrawTxs: (a: number, b: number, c: number) => number;
+  readonly rpcclient_pullForwardTxs: (a: number, b: number, c: number, d: number) => number;
+  readonly rpcclient_getWebSocketEvents: (a: number, b: number, c: number, d: number, e: number, f: number) => number;
+  readonly __wbg_accountquery_free: (a: number) => void;
+  readonly __wbg_txzklinksignature_free: (a: number) => void;
+  readonly __wbg_zklinktx_free: (a: number) => void;
+  readonly txzklinksignature_new: (a: number, b: number, c: number, d: number, e: number) => void;
+  readonly accountquery_new: (a: number, b: number, c: number) => number;
+  readonly txlayer1signature_new: (a: number, b: number, c: number) => number;
+  readonly txlayer1signature_signType: (a: number) => number;
+  readonly txlayer1signature_signature: (a: number, b: number) => void;
+  readonly txzklinksignature_pubKey: (a: number, b: number) => void;
+  readonly txzklinksignature_signature: (a: number, b: number) => void;
+  readonly zklinktx_new: (a: number, b: number) => number;
+  readonly __wbg_ethtxoption_free: (a: number) => void;
+  readonly ethtxoption_new: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number, j: number, k: number, l: number) => void;
+  readonly ethtxoption_json_value: (a: number, b: number) => void;
+  readonly __wbg_wallet_free: (a: number) => void;
+  readonly wallet_new: (a: number, b: number, c: number, d: number, e: number) => void;
+  readonly wallet_getBalance: (a: number) => number;
+  readonly wallet_getNonce: (a: number, b: number, c: number, d: number) => number;
+  readonly wallet_getDepositFee: (a: number, b: number) => number;
+  readonly wallet_waitForTransaction: (a: number, b: number, c: number, d: number, e: number) => number;
+  readonly wallet_approveERC20: (a: number, b: number, c: number, d: number, e: number, f: number) => number;
+  readonly wallet_depositERC20: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number, j: number, k: number) => number;
+  readonly wallet_depositETH: (a: number, b: number, c: number, d: number, e: number, f: number) => number;
+  readonly wallet_setAuthPubkeyHash: (a: number, b: number, c: number, d: number, e: number) => number;
+  readonly wallet_fullExit: (a: number, b: number, c: number, d: number, e: number, f: number) => number;
   readonly __wbg_txlayer1signature_free: (a: number) => void;
   readonly __wbg_jsonrpcsigner_free: (a: number) => void;
-  readonly newEthereumRpcSigner: (a: number, b: number) => void;
-  readonly newStarknetRpcSigner: (a: number, b: number, c: number, d: number, e: number, f: number) => void;
+  readonly newRpcSignerWithProvider: (a: number, b: number) => void;
+  readonly newRpcSignerWithSigner: (a: number, b: number, c: number, d: number, e: number, f: number) => void;
   readonly jsonrpcsigner_initZklinkSigner: (a: number, b: number, c: number) => number;
   readonly jsonrpcsigner_getPubkey: (a: number, b: number) => void;
   readonly jsonrpcsigner_pubkeyHash: (a: number, b: number) => void;
@@ -1094,18 +1088,6 @@ export interface InitOutput {
   readonly jsonrpcsigner_signContractMatching: (a: number, b: number, c: number) => void;
   readonly jsonrpcsigner_signFunding: (a: number, b: number, c: number) => void;
   readonly jsonrpcsigner_signLiquidation: (a: number, b: number, c: number) => void;
-  readonly __wbg_autodeleveraging_free: (a: number) => void;
-  readonly autodeleveraging_jsValue: (a: number, b: number) => void;
-  readonly __wbg_autodeleveragingbuilder_free: (a: number) => void;
-  readonly autodeleveragingbuilder_new: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number, j: number, k: number, l: number, m: number, n: number, o: number, p: number, q: number) => void;
-  readonly autodeleveragingbuilder_build: (a: number) => number;
-  readonly newAutoDeleveraging: (a: number) => number;
-  readonly __wbg_liquidation_free: (a: number) => void;
-  readonly liquidation_jsValue: (a: number, b: number) => void;
-  readonly __wbg_liquidationbuilder_free: (a: number) => void;
-  readonly liquidationbuilder_new: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number, j: number, k: number, l: number) => void;
-  readonly liquidationbuilder_build: (a: number) => number;
-  readonly newLiquidation: (a: number) => number;
   readonly __wbg_updateglobalvar_free: (a: number) => void;
   readonly updateglobalvar_jsonValue: (a: number, b: number) => void;
   readonly updateglobalvar_zklinkTx: (a: number, b: number) => void;
@@ -1115,37 +1097,42 @@ export interface InitOutput {
   readonly __wbg_parameter_free: (a: number) => void;
   readonly parameter_new: (a: number, b: number) => number;
   readonly __wbg_margininfo_free: (a: number) => void;
-  readonly margininfo_new: (a: number, b: number, c: number, d: number, e: number) => number;
+  readonly margininfo_new: (a: number, b: number, c: number) => number;
   readonly margininfo_jsonValue: (a: number, b: number) => void;
   readonly __wbg_contractinfo_free: (a: number) => void;
   readonly contractinfo_new: (a: number, b: number, c: number, d: number, e: number) => number;
   readonly contractinfo_jsonValue: (a: number, b: number) => void;
-  readonly __wbg_order_free: (a: number) => void;
-  readonly __wbg_ordermatching_free: (a: number) => void;
-  readonly order_new: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number, j: number, k: number, l: number, m: number, n: number, o: number) => void;
-  readonly order_json_value: (a: number, b: number) => void;
-  readonly ordermatching_json_value: (a: number, b: number) => void;
-  readonly __wbg_ordermatchingbuilder_free: (a: number) => void;
-  readonly ordermatchingbuilder_new: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number, j: number, k: number, l: number, m: number, n: number, o: number, p: number) => void;
-  readonly ordermatchingbuilder_build: (a: number) => number;
-  readonly newOrderMatching: (a: number) => number;
-  readonly closestPackableTransactionAmount: (a: number, b: number, c: number) => void;
-  readonly closestPackableTransactionFee: (a: number, b: number, c: number) => void;
+  readonly __wbg_forcedexit_free: (a: number) => void;
+  readonly forcedexit_json_value: (a: number, b: number) => void;
+  readonly __wbg_forcedexitbuilder_free: (a: number) => void;
+  readonly forcedexitbuilder_new: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number, j: number, k: number, l: number, m: number, n: number, o: number) => void;
+  readonly forcedexitbuilder_build: (a: number) => number;
+  readonly newForcedExit: (a: number) => number;
   readonly __wbg_updateglobalvarbuilder_free: (a: number) => void;
-  readonly __wbg_ethtxoption_free: (a: number) => void;
-  readonly ethtxoption_new: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number, j: number, k: number, l: number) => void;
-  readonly ethtxoption_json_value: (a: number, b: number) => void;
-  readonly __wbg_wallet_free: (a: number) => void;
-  readonly wallet_new: (a: number, b: number, c: number, d: number, e: number) => void;
-  readonly wallet_getBalance: (a: number) => number;
-  readonly wallet_getNonce: (a: number, b: number, c: number, d: number) => number;
-  readonly wallet_getDepositFee: (a: number, b: number) => number;
-  readonly wallet_waitForTransaction: (a: number, b: number, c: number, d: number, e: number) => number;
-  readonly wallet_approveERC20: (a: number, b: number, c: number, d: number, e: number, f: number) => number;
-  readonly wallet_depositERC20: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number, j: number, k: number) => number;
-  readonly wallet_depositETH: (a: number, b: number, c: number, d: number, e: number, f: number) => number;
-  readonly wallet_setAuthPubkeyHash: (a: number, b: number, c: number, d: number, e: number) => number;
-  readonly wallet_fullExit: (a: number, b: number, c: number, d: number, e: number, f: number) => number;
+  readonly __wbg_autodeleveraging_free: (a: number) => void;
+  readonly autodeleveraging_jsValue: (a: number, b: number) => void;
+  readonly __wbg_autodeleveragingbuilder_free: (a: number) => void;
+  readonly autodeleveragingbuilder_new: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number, j: number, k: number, l: number, m: number, n: number, o: number, p: number, q: number) => void;
+  readonly autodeleveragingbuilder_build: (a: number) => number;
+  readonly newAutoDeleveraging: (a: number) => number;
+  readonly __wbg_withdraw_free: (a: number) => void;
+  readonly withdraw_json_value: (a: number, b: number) => void;
+  readonly __wbg_withdrawbuilder_free: (a: number) => void;
+  readonly withdrawbuilder_new: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number, j: number, k: number, l: number, m: number, n: number, o: number, p: number, q: number, r: number, s: number) => void;
+  readonly withdrawbuilder_build: (a: number) => number;
+  readonly newWithdraw: (a: number) => number;
+  readonly __wbg_contractmatching_free: (a: number) => void;
+  readonly contractmatching_jsValue: (a: number, b: number) => void;
+  readonly __wbg_contractmatchingbuilder_free: (a: number) => void;
+  readonly contractmatchingbuilder_new: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number, j: number, k: number, l: number, m: number) => void;
+  readonly contractmatchingbuilder_build: (a: number) => number;
+  readonly newContractMatching: (a: number) => number;
+  readonly __wbg_contract_free: (a: number) => void;
+  readonly contract_jsonValue: (a: number, b: number) => void;
+  readonly __wbg_contractbuilder_free: (a: number) => void;
+  readonly contractbuilder_new: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number, j: number, k: number, l: number, m: number, n: number) => void;
+  readonly contractbuilder_build: (a: number) => number;
+  readonly newContract: (a: number) => number;
   readonly __wbg_requestarguments_free: (a: number) => void;
   readonly __wbindgen_export_0: (a: number, b: number) => number;
   readonly __wbindgen_export_1: (a: number, b: number, c: number, d: number) => number;
